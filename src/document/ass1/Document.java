@@ -85,7 +85,7 @@ public abstract class Document {
 				newSyllable = true;
 			}
 		}
-		//System.out.println( "found " + numSyllables);
+		System.out.println( "found " + numSyllables);
 		return numSyllables;
 	}
 	
@@ -151,13 +151,8 @@ public abstract class Document {
 	{
 	    // TODO: You will play with this method in week 1, and 
 		// then implement it in week 2
-		int numWords = getNumWords();
-		int numSent = getNumSentences();
-		int numSyll = getNumSyllables();
-		double a = 1.015*(numWords/numSent);
-		double b = 84.6*(numSyll/numWords);
-		double fs = 206.585 - a - b;
-	    return fs;
+		double wordCount = (double)getNumWords();
+		return (206.835 - (1.015 * ((wordCount)/getNumSentences())) - (84.6 * (((double)getNumSyllables())/wordCount)));
 	}
 	
 	

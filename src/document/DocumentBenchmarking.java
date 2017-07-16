@@ -33,6 +33,9 @@ public class DocumentBenchmarking {
 		// THe number of characters to start with. 
 		// You can play around with this.
 		int start = 50000;
+		long start_time;
+		long end_time;
+		double fleschScore;
 		
 		// TODO: Fill in the rest of this method so that it runs two loops
 		// and prints out timing results as described in the assignment 
@@ -58,7 +61,31 @@ public class DocumentBenchmarking {
 			 * 6. Print out the time it took to complete the loop in step 5 
 			 *      (on the same line as the first print statement) followed by a newline (\n) 
 			 */  
-			 
+			
+			//1
+			System.out.print(numToCheck + "\t\t"); 
+			//2
+			String file1 = getStringFromFile(textfile, numToCheck);
+			//3
+			start_time = System.nanoTime(); 
+			for(int i=0; i<trials; i++){
+				BasicDocument doc1 = new BasicDocument(file1);
+				fleschScore = doc1.getFleschScore();
+			}
+			end_time = System.nanoTime(); 
+			//4
+			double basic_time = (end_time-start_time)/1000000000.0;
+			System.out.print(basic_time+"\t");
+			//5
+			start_time = System.nanoTime(); 
+			for(int i=0; i<trials; i++){
+				EfficientDocument doc2 = new EfficientDocument(file1);
+				fleschScore = doc2.getFleschScore();
+			}
+			end_time = System.nanoTime();
+			//6
+			double efficient_time = (end_time-start_time)/1000000000.0;
+			System.out.println(efficient_time);
 		}
 	
 	}
