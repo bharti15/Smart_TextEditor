@@ -27,12 +27,45 @@ public class MarkovTextGeneratorLoL implements MarkovTextGenerator {
 		rnGenerator = generator;
 	}
 	
+	public boolean member(List<ListNode> root, String val){
+		List<ListNode> currentNode = root;//keep track of current node
+		int i=0;
+	    while(i < root.size()){
+	        //switched currentNode.val and val to avoid null pointer exceptions
+	        if(val.equals(currentNode.get(i).getWord())){
+	        //if you're looking for nulls...still with the original
+	        //if(currentNode.val.equals(val)){
+	            System.out.println("true");
+	            return true;
+	        }
+	        i++;
+	        
+	    }
+	    return false;
+	}
+	
 	
 	/** Train the generator by adding the sourceText */
 	@Override
 	public void train(String sourceText)
 	{
 		// TODO: Implement this method
+		String list[] = sourceText.split(" ");
+		starter = list[0];
+		ListNode prevWord = new ListNode(starter);
+		wordList.add(new ListNode(starter));
+		
+		for(int i=1; i<list.length; i++) {
+			if(member(wordList, prevWord.getWord())) {
+				prevWord.addNextWord(list[i]);
+			}
+			else {
+				wordList.add(prevWord);
+				prevWord.addNextWord(list[i]);
+			}
+			prevWord = new ListNode(list[i]);
+		}
+		wordList.get(wordList.size()-1).addNextWord(starter);
 	}
 	
 	/** 
@@ -41,6 +74,13 @@ public class MarkovTextGeneratorLoL implements MarkovTextGenerator {
 	@Override
 	public String generateText(int numWords) {
 	    // TODO: Implement this method
+		String curWord = wordList.get(0).getWord();
+		String output = "";
+		output += curWord;
+		while(numWords>0) {
+			
+			numWords--;
+		}
 		return null;
 	}
 	
